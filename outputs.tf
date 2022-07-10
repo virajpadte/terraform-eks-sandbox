@@ -10,6 +10,6 @@ output "kubeconfig-certificate-authority-data" {
   value = aws_eks_cluster.eks_test_cluster.certificate_authority[0].data
 }
 
-output "aws_route53_zone_nameservers" {
-  value = aws_route53_zone.eks_test_cluster.name_servers
-}
+# output "aws_route53_zone_nameservers" {
+#   value = aws_route53_zone.eks_test_cluster.name_servers
+# }
