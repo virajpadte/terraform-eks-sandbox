@@ -18,7 +18,7 @@ format: clean ## Format the terraform files
 			-e TF_VAR_secret_key=$(AWS_SECRET_ACCESS_KEY) \
 			-e TF_VAR_region=$(AWS_REGION) \
 			-v `pwd`:/workspace \
-			-w /workspace --name terraform-sandbox-node $(TERRAFORM_IMAGE) fmt
+			-w /workspace --name terraform-sandbox-node $(TERRAFORM_IMAGE) fmt -recursive
 
 validate: clean ## Validate terraform files
 	@echo "Initialize terraform workspace"
@@ -54,8 +54,7 @@ apply: plan ## Apply the terraform plan
 		-e TF_VAR_region=$(AWS_REGION) \
 		-v `pwd`:/workspace \
 		-w /workspace --name terraform-sandbox-node $(TERRAFORM_IMAGE) apply -auto-approve "saved_plan" ; \
-	else echo "Please make changes and plan to deploy again..."; fi
-
+	else echo "Please make changes and plan to deploy again..."; fi	
 destroy: clean ## Delete the entire stack
 	@nerdctl run -e TF_VAR_access_key=$(AWS_ACCESS_KEY_ID) \
 			-e TF_VAR_secret_key=$(AWS_SECRET_ACCESS_KEY) \

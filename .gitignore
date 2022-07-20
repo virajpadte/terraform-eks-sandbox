@@ -38,3 +38,6 @@ saved_plan
 
 #Ignoring Mac OS files
 **/.DS_Store
+
+#Ignore VSCode
+.vscode

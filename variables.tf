@@ -4,9 +4,13 @@ data "aws_caller_identity" "current" {
 
 data "aws_partition" "current" {}
 
-data "aws_eks_cluster_auth" "eks_test_cluster" {
-  name = aws_eks_cluster.eks_test_cluster.name
-}
+# data "aws_eks_cluster" "eks_cluster" {
+#   name = var.cluster_name
+# }
+
+# data "aws_eks_cluster_auth" "eks_cluster" {
+#   name = module.eks_cluster.cluster_name
+# }
 
 locals {
   account_id         = data.aws_caller_identity.current.account_id
@@ -53,69 +57,12 @@ variable "availability_zones" {
 
 # eks compute variables
 variable "cluster_name" {
-  default = "eks-test-cluster"
+  default = "eks-cluster"
   type    = string
 }
 
-variable "kubernetes_version" {
-  description = "The target version of kubernetes"
-  type        = string
-  default     = "1.22"
+# DNS variables
+variable "domain_name" {
+  default = "unhosted.me"
+  type    = string
 }
-
-variable "managed_node_group_config" {
-  description = "Managed node group scaling configuration"
-  default = {
-    update_config = {
-      max_unavailable = 1
-    }
-    scaling_config = {
-      desired_size = 1
-      max_size     = 1
-      min_size     = 1
-    }
-  }
-}
-
-variable "eks_control_plane_creation_wait" {
-  description = "Wait duration after control plane creation"
-  default     = "90s"
-}
-
-# eks config map variables
-
-variable "aws_auth_roles" {
-  description = "List of role maps to add to the aws-auth configmap"
-  type        = list(any)
-  default     = []
-}
-
-variable "aws_auth_users" {
-  description = "List of user maps to add to the aws-auth configmap"
-  type        = list(any)
-  default     = []
-}
-
-variable "aws_auth_accounts" {
-  description = "List of account maps to add to the aws-auth configmap"
-  type        = list(any)
-  default     = []
-}
-
-
-# # service accounts
-# variable "alb_service_account_name" {
-#   default = "aws-load-balancer-controller"
-#   type    = string
-# }
-
-# variable "external_dns_service_account_name" {
-#   default = "aws-external-dns-controller"
-#   type    = string
-# }
-
-# # dns variables
-# variable "domain_name" {
-#   default = "unhosted.me"
-#   type    = string
-# }
