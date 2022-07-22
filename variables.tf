@@ -36,15 +36,15 @@ variable "secret_key" {
 # network variables
 variable "public_subnet_cidrs" {
   default = [
-    "192.168.0.0/28",
-    "192.168.64.0/28"
+    "192.168.0.0/24",
+    "192.168.64.0/24"
   ]
 }
 
 variable "private_subnet_cidrs" {
   default = [
-    "192.168.128.0/28",
-    "192.168.192.0/28"
+    "192.168.128.0/24",
+    "192.168.192.0/24"
   ]
 }
 
@@ -65,4 +65,9 @@ variable "cluster_name" {
 variable "domain_name" {
   default = "unhosted.me"
   type    = string
+}
+
+# My IP
+data "http" "ip" {
+  url = "https://ifconfig.me"
 }

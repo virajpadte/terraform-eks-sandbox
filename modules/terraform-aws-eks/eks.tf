@@ -12,8 +12,9 @@ resource "aws_eks_cluster" "eks_cluster" {
   vpc_config {
     subnet_ids              = flatten([var.public_subnets, var.private_subnets])
     security_group_ids      = [var.eks_control_plane_security_group]
-    endpoint_private_access = "true"
-    endpoint_public_access  = "true"
+    endpoint_private_access = var.enable_endpoint_private_access
+    endpoint_public_access  = var.enable_endpoint_public_access
+    public_access_cidrs     = var.cluster_access_cidrs
   }
   depends_on = [
     aws_iam_role.eks_cluster_role,

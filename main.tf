@@ -18,6 +18,11 @@ module "eks_cluster" {
   public_subnets                   = aws_subnet.eks_public_subnet[*].id
   private_subnets                  = aws_subnet.eks_private_subnet[*].id
   eks_control_plane_security_group = aws_security_group.eks_control_plane_security_group.id
+  enable_endpoint_private_access   = true
+  enable_endpoint_public_access    = true
+  cluster_access_cidrs = [
+    "${data.http.ip.body}/32"
+  ]
 }
 
 module "eks-cluster-controllers" {

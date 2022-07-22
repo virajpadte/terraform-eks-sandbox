@@ -4,7 +4,9 @@ data "aws_caller_identity" "current" {
 
 data "aws_partition" "current" {}
 
-
+data "aws_eks_cluster_auth" "eks_cluster" {
+  name = aws_eks_cluster.eks_cluster.name
+}
 
 locals {
   account_id         = data.aws_caller_identity.current.account_id
@@ -38,13 +40,24 @@ variable "public_subnets" {
   type        = list(string)
 }
 
+variable "cluster_access_cidrs" {
+  description = "Cluster access CIDRs"
+  type        = list(string)
+}
+
 variable "private_subnets" {
   description = "List of private subnets"
   type        = list(string)
 }
 
-data "aws_eks_cluster_auth" "eks_cluster" {
-  name = aws_eks_cluster.eks_cluster.name
+variable "enable_endpoint_private_access" {
+  description = "Flag to enable private access for EKS control plane"
+  type        = bool
+}
+
+variable "enable_endpoint_public_access" {
+  description = "Flag to enable private access for EKS control plane"
+  type        = bool
 }
 
 # EKS config map variables
