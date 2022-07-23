@@ -4,14 +4,6 @@ data "aws_caller_identity" "current" {
 
 data "aws_partition" "current" {}
 
-# data "aws_eks_cluster" "eks_cluster" {
-#   name = var.cluster_name
-# }
-
-# data "aws_eks_cluster_auth" "eks_cluster" {
-#   name = module.eks_cluster.cluster_name
-# }
-
 locals {
   account_id         = data.aws_caller_identity.current.account_id
   account_dns_suffix = data.aws_partition.current.dns_suffix

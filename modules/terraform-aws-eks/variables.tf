@@ -60,6 +60,11 @@ variable "enable_endpoint_public_access" {
   type        = bool
 }
 
+variable "cluster_secrets_key" {
+  description = "KMS key for encryption EKS secrets"
+  type        = string
+}
+
 # EKS config map variables
 variable "aws_auth_roles" {
   description = "List of role maps to add to the aws-auth configmap"
