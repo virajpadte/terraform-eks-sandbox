@@ -23,7 +23,6 @@ module "eks_cluster" {
   cluster_access_cidrs = [
     "${data.http.ip.body}/32"
   ]
-  cluster_secrets_key = aws_kms_key.eks_cluster_secrets_key.arn
 }
 
 module "eks-cluster-controllers" {

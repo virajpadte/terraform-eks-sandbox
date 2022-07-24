@@ -16,12 +16,16 @@ resource "aws_eks_cluster" "eks_cluster" {
     endpoint_public_access  = var.enable_endpoint_public_access
     public_access_cidrs     = var.cluster_access_cidrs
   }
-  encryption_config {
-    provider {
-      key_arn = var.cluster_secrets_key
+  dynamic "encryption_config" {
+    for_each = var.cluster_secrets_key != null ? list(1) : []
+    content {
+      provider {
+        key_arn = var.cluster_secrets_key
+      }
+      resources = ["secrets"]
     }
-    resources = ["secrets"]
   }
+
   depends_on = [
     aws_iam_role.eks_cluster_role,
     aws_cloudwatch_log_group.eks_cluster_log_group

@@ -63,6 +63,7 @@ variable "enable_endpoint_public_access" {
 variable "cluster_secrets_key" {
   description = "KMS key for encryption EKS secrets"
   type        = string
+  default     = null
 }
 
 # EKS config map variables
