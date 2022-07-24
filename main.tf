@@ -1,17 +1,7 @@
 module "eks_cluster" {
-  source             = "./modules/terraform-aws-eks"
-  cluster_name       = "eks-cluster"
-  kubernetes_version = "1.22"
-  managed_node_group_config = {
-    scaling_config = {
-      desired_size = 1
-      max_size     = 1
-      min_size     = 1
-    }
-    update_config = {
-      max_unavailable = 1
-    }
-  }
+  source                           = "./modules/terraform-aws-eks"
+  cluster_name                     = "eks-cluster"
+  kubernetes_version               = "1.22"
   aws_auth_roles                   = []
   aws_auth_users                   = []
   aws_auth_accounts                = []
@@ -23,6 +13,28 @@ module "eks_cluster" {
   cluster_access_cidrs = [
     "${data.http.ip.body}/32"
   ]
+
+  managed_node_group_configs = {
+    standard_ng = {
+      scaling_config = {
+        desired_size = 1
+        max_size     = 1
+        min_size     = 1
+      }
+      update_config = {
+        max_unavailable = 1
+      }
+
+      instance_config = {
+        ami_type             = "AL2_x86_64"
+        capacity_type        = "ON_DEMAND"
+        disk_size            = 20
+        force_update_version = false
+        instance_types       = ["t3.medium"]
+      }
+    }
+
+  }
 }
 
 module "eks-cluster-controllers" {

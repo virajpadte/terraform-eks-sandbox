@@ -46,19 +46,25 @@ resource "aws_iam_openid_connect_provider" "eks_cluster_openid_connect_provider"
 
 ### Node groups
 resource "aws_eks_node_group" "eks_cluster_node_group" {
+  for_each        = var.managed_node_group_configs
   cluster_name    = aws_eks_cluster.eks_cluster.name
   node_group_name = "eks-cluster-node-group"
   node_role_arn   = aws_iam_role.eks_node_role.arn
   subnet_ids      = var.private_subnets
   scaling_config {
-    desired_size = var.managed_node_group_config.scaling_config.desired_size
-    max_size     = var.managed_node_group_config.scaling_config.max_size
-    min_size     = var.managed_node_group_config.scaling_config.min_size
+    desired_size = each.value.scaling_config.desired_size
+    max_size     = each.value.scaling_config.max_size
+    min_size     = each.value.scaling_config.min_size
 
   }
   update_config {
-    max_unavailable = var.managed_node_group_config.update_config.max_unavailable
+    max_unavailable = each.value.update_config.max_unavailable
   }
+  ami_type             = each.value.instance_config.ami_type
+  capacity_type        = each.value.instance_config.capacity_type
+  disk_size            = each.value.instance_config.disk_size
+  force_update_version = each.value.instance_config.force_update_version
+  instance_types       = each.value.instance_config.instance_types
 }
 
 ### EKS Config map

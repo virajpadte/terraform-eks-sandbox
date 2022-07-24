@@ -24,8 +24,8 @@ variable "kubernetes_version" {
   type        = string
 }
 
-variable "managed_node_group_config" {
-  description = "Managed node group configuration"
+variable "managed_node_group_configs" {
+  description = "Managed node group configurations"
   type        = map(any)
 }
 
@@ -88,5 +88,4 @@ variable "aws_auth_accounts" {
 variable "eks_control_plane_security_group" {
   description = "EKS control plane security group"
   type        = string
-
 }
