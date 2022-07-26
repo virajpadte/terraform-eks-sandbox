@@ -20,7 +20,7 @@ spec:
         app.kubernetes.io/name: app-2048
     spec:
       containers:
-      - image: 904546716712.dkr.ecr.us-east-1.amazonaws.com/game2048:1.0.0
+      - image: 501533612229.dkr.ecr.us-east-1.amazonaws.com/game2048:1.0.0
         imagePullPolicy: Always
         name: app-2048
         ports:
@@ -52,7 +52,7 @@ metadata:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
     alb.ingress.kubernetes.io/ssl-redirect: '443'
     # ACM and DNS
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:904546716712:certificate/ff22073e-8de6-4650-ae3c-54f3f6f53846
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:501533612229:certificate/0f8e4315-7af4-47d7-86d2-49ba0092873b
     external-dns.alpha.kubernetes.io/hostname: 2048.unhosted.me
 spec:
   ingressClassName: alb

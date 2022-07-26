@@ -17,7 +17,7 @@ resource "aws_eks_cluster" "eks_cluster" {
     public_access_cidrs     = var.cluster_access_cidrs
   }
   dynamic "encryption_config" {
-    for_each = var.cluster_secrets_key != null ? list(1) : []
+    for_each = var.cluster_secrets_key != null ? ["true"] : []
     content {
       provider {
         key_arn = var.cluster_secrets_key

@@ -11,8 +11,11 @@ module "eks_cluster" {
   enable_endpoint_private_access   = true
   enable_endpoint_public_access    = true
   cluster_access_cidrs = [
-    "${data.http.ip.body}/32"
+    #"${data.http.ip.body}/32"
+    "0.0.0.0/0"
   ]
+
+  cluster_secrets_key = aws_kms_key.eks_cluster_secrets_key.arn
 
   managed_node_group_configs = {
     standard_ng = {
