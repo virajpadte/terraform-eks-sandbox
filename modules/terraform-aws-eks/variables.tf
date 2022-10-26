@@ -27,6 +27,7 @@ variable "kubernetes_version" {
 variable "managed_node_group_configs" {
   description = "Managed node group configurations"
   type        = map(any)
+  default     = {}
 }
 
 variable "eks_control_plane_creation_wait" {

@@ -41,3 +41,6 @@ saved_plan
 
 #Ignore VSCode
 .vscode
+
+full-list.tf
+manifest.yaml

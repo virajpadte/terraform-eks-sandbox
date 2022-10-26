@@ -75,6 +75,7 @@ resource "time_sleep" "eks_control_plane_creation_wait" {
 }
 
 resource "kubernetes_config_map_v1_data" "aws_auth" {
+  count = length(keys(var.managed_node_group_configs)) > 0 ? 1 : 0
   force = true
   metadata {
     name      = "aws-auth"

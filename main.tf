@@ -1,7 +1,7 @@
 module "eks_cluster" {
   source                           = "./modules/terraform-aws-eks"
   cluster_name                     = "eks-cluster"
-  kubernetes_version               = "1.22"
+  kubernetes_version               = "1.23"
   aws_auth_roles                   = []
   aws_auth_users                   = []
   aws_auth_accounts                = []
@@ -11,18 +11,16 @@ module "eks_cluster" {
   enable_endpoint_private_access   = true
   enable_endpoint_public_access    = true
   cluster_access_cidrs = [
-    #"${data.http.ip.body}/32"
-    "0.0.0.0/0"
+    "${data.http.ip.body}/32"
   ]
 
   cluster_secrets_key = aws_kms_key.eks_cluster_secrets_key.arn
-
   managed_node_group_configs = {
     standard_ng = {
       scaling_config = {
-        desired_size = 1
-        max_size     = 1
-        min_size     = 1
+        desired_size = 2
+        max_size     = 3
+        min_size     = 2
       }
       update_config = {
         max_unavailable = 1

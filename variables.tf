@@ -2,6 +2,8 @@ data "aws_caller_identity" "current" {
   provider = aws
 }
 
+data "aws_region" "current" {}
+
 data "aws_partition" "current" {}
 
 locals {
@@ -45,6 +47,26 @@ variable "availability_zones" {
     "us-east-1a",
     "us-east-1b"
   ]
+}
+
+variable "vpce_services" {
+  default = {
+    "gateway" = [
+      "s3"
+    ]
+    "interface" = [
+      "autoscaling",
+      "ec2",
+      "ec2messages",
+      "ecr.api",
+      "ecr.dkr",
+      "elasticloadbalancing",
+      "logs",
+      "ssm",
+      "ssmmessages",
+      "sts"
+    ]
+  }
 }
 
 # eks compute variables
